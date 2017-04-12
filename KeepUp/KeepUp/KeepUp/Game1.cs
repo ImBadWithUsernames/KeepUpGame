@@ -19,6 +19,8 @@ namespace KeepUp
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
+        enum GameStates { TitleScreen, Playing, GameOver };
+        GameStates gameState = GameStates.TitleScreen;
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -73,6 +75,7 @@ namespace KeepUp
             // TODO: Add your update logic here
 
             base.Update(gameTime);
+            IsMouseVisible(true);
         }
 
         /// <summary>
