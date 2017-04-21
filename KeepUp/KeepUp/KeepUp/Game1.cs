@@ -18,6 +18,8 @@ namespace KeepUp
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        Sprite Ball;
+        Texture2D B1;
 
         enum GameStates { TitleScreen, Playing, GameOver };
         GameStates gameState = GameStates.TitleScreen;
@@ -35,6 +37,7 @@ namespace KeepUp
         /// </summary>
         protected override void Initialize()
         {
+            this.IsMouseVisible = true;
             // TODO: Add your initialization logic here
 
             base.Initialize();
@@ -46,8 +49,13 @@ namespace KeepUp
         /// </summary>
         protected override void LoadContent()
         {
+            B1 = Content.Load<Texture2D>("Ball");
             // Create a new SpriteBatch, which can be used to draw textures.
-            spriteBatch = new SpriteBatch(GraphicsDevice);
+            Ball = new Sprite(new Vector2(140, 20),
+                            B1,
+                            new Rectangle(350, 150, 140, 140));
+                            new Vector2
+
 
             // TODO: use this.Content to load your game content here
         }
@@ -60,7 +68,7 @@ namespace KeepUp
         {
             // TODO: Unload any non ContentManager content here
         }
-
+        
         /// <summary>
         /// Allows the game to run logic such as updating the world,
         /// checking for collisions, gathering input, and playing audio.
@@ -74,17 +82,17 @@ namespace KeepUp
 
             // TODO: Add your update logic here
 
+            Ball.Update(gameTime);
             base.Update(gameTime);
-            IsMouseVisible(true);
         }
-
+        
         /// <summary>
         /// This is called when the game should draw itself.
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.SkyBlue);
 
             // TODO: Add your drawing code here
 

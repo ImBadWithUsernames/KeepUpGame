@@ -14,3 +14,4 @@ C:\Users\eahscs\Documents\GitHub\KeepUpGame\KeepUp\KeepUp\KeepUp\obj\x86\Debug\K
 C:\Users\eahscs\Documents\GitHub\KeepUpGame\KeepUp\KeepUp\KeepUp\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
 C:\Users\eahscs\Documents\GitHub\KeepUpGame\KeepUp\KeepUp\KeepUp\obj\x86\Debug\KeepUp.exe
 C:\Users\eahscs\Documents\GitHub\KeepUpGame\KeepUp\KeepUp\KeepUp\obj\x86\Debug\KeepUp.pdb
+C:\Users\eahscs\Documents\GitHub\KeepUpGame\KeepUp\KeepUp\KeepUp\bin\x86\Debug\Content\Ball.xnb
