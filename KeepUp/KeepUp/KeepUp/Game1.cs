@@ -23,6 +23,7 @@ namespace KeepUp
 
         enum GameStates { TitleScreen, Playing, GameOver };
         GameStates gameState = GameStates.TitleScreen;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -40,6 +41,7 @@ namespace KeepUp
             this.IsMouseVisible = true;
             // TODO: Add your initialization logic here
 
+            
             base.Initialize();
         }
 
@@ -51,10 +53,12 @@ namespace KeepUp
         {
             B1 = Content.Load<Texture2D>("Ball");
             // Create a new SpriteBatch, which can be used to draw textures.
+            spriteBatch = new SpriteBatch(GraphicsDevice);
+
             Ball = new Sprite(new Vector2(140, 20),
                             B1,
-                            new Rectangle(350, 150, 140, 140));
-                            new Vector2
+                            new Rectangle(350, 150, 140, 140),
+                            new Vector2(0, 700));
 
 
             // TODO: use this.Content to load your game content here
@@ -82,7 +86,30 @@ namespace KeepUp
 
             // TODO: Add your update logic here
 
-            Ball.Update(gameTime);
+            if (gameState == GameStates.TitleScreen)
+            {
+                KeyboardState kb = Keyboard.GetState();
+
+                if (kb.IsKeyDown(Keys.Space))
+                {
+                    gameState = GameStates.Playing;
+                }
+            }
+            else if (gameState == GameStates.Playing)
+            {
+
+                if (Ball.Location.Y > this.Window.ClientBounds.Height)
+                    gameState = GameStates.GameOver;
+
+                Ball.Update(gameTime);
+            }
+            else if (gameState == GameStates.GameOver)
+            {
+
+            }
+            
+
+
             base.Update(gameTime);
         }
         
@@ -92,9 +119,37 @@ namespace KeepUp
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.SkyBlue);
 
-            // TODO: Add your drawing code here
+            if (gameState == GameStates.TitleScreen)
+            {
+                GraphicsDevice.Clear(Color.SkyBlue);
+                spriteBatch.Begin();
+
+                //spriteBatch.Draw(background, this.Window.ClientBounds, Color.White);
+
+                spriteBatch.End();
+            }
+            else if (gameState == GameStates.Playing)
+            {
+                GraphicsDevice.Clear(Color.Turquoise);
+                spriteBatch.Begin();
+
+                //spriteBatch.Draw(background, this.Window.ClientBounds, Color.White);
+                Ball.Draw(spriteBatch);
+
+                spriteBatch.End();
+            }
+            else if (gameState == GameStates.GameOver)
+            {
+                GraphicsDevice.Clear(Color.SeaGreen);
+                spriteBatch.Begin();
+
+                //spriteBatch.Draw(background, this.Window.ClientBounds, Color.White);
+
+                spriteBatch.End();
+
+            }
+
 
             base.Draw(gameTime);
         }
