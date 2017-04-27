@@ -20,7 +20,7 @@ namespace KeepUp
         SpriteBatch spriteBatch;
         Sprite Ball;
         Texture2D B1;
-
+        int score = 0;
         enum GameStates { TitleScreen, Playing, GameOver };
         GameStates gameState = GameStates.TitleScreen;
 
@@ -55,7 +55,7 @@ namespace KeepUp
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            Ball = new Sprite(new Vector2(140, 20),
+            Ball = new Sprite(new Vector2(300, 20),
                             B1,
                             new Rectangle(350, 150, 140, 140),
                             new Vector2(0, 700));
@@ -81,6 +81,7 @@ namespace KeepUp
         protected override void Update(GameTime gameTime)
         {
             // Allows the game to exit
+            Window.Title = "Score : " + score;
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
 
@@ -97,9 +98,28 @@ namespace KeepUp
             }
             else if (gameState == GameStates.Playing)
             {
+                MouseState ms = Mouse.GetState();
+                Vector2 clk = new Vector2(ms.X, ms.Y);
 
+                if (ms.LeftButton == ButtonState.Pressed && Vector2.Distance(clk, Ball.Center) < Ball.BoundingBoxRect.Width/2)
+                {
+                    Ball.Velocity = new Vector2(0, -1000);
+                    score += 1;
+                }
+                if (Ball.Location.Y > this.Window.ClientBounds.Height-Ball.BoundingBoxRect.Height)
+                {
+                    Ball.Velocity = new Vector2(0, -1600);
+                    score = 0;
+                    //gameState = GameStates.GameOver;
+                }
+                /*
                 if (Ball.Location.Y > this.Window.ClientBounds.Height)
-                    gameState = GameStates.GameOver;
+                {
+                    Ball.Velocity = new Vector2(0, -600);
+                    //gameState = GameStates.GameOver;
+                }*/
+
+                Ball.Velocity += new Vector2(0, 50);
 
                 Ball.Update(gameTime);
             }
